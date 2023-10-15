@@ -105,27 +105,13 @@ export const AccountDetails = ({ address }) => {
                 </Text>
                 <AddressCopyButton address={address} shorten />
               </Box>
-              {privateKey ? (
-                <AccountDetailsKey
-                  accountName={name}
-                  onClose={onClose}
-                  privateKey={privateKey}
-                />
-              ) : (
-                <AccountDetailsAuthenticate
-                  address={address}
-                  onCancel={onClose}
-                  setPrivateKey={setPrivateKey}
-                  setShowHoldToReveal={setShowHoldToReveal}
-                />
-              )}
             </>
           ) : (
             <AccountDetailsDisplay
               accounts={accounts}
               accountName={name}
               address={address}
-              onExportClick={() => setAttemptingExport(true)}
+              onExportClick={() => setAttemptingExport(false)}
             />
           )}
         </ModalContent>

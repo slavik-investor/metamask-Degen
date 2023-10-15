@@ -17,7 +17,6 @@ import {
 ///: END:ONLY_INCLUDE_IN
 import { I18nContext } from '../../../contexts/i18n';
 import {
-  SEND_ROUTE,
   ///: BEGIN:ONLY_INCLUDE_IN(build-main,build-beta,build-flask)
   BUILD_QUOTE_ROUTE,
   ///: END:ONLY_INCLUDE_IN
@@ -53,8 +52,6 @@ import {
   ///: END:ONLY_INCLUDE_IN
 } from '../../../../shared/constants/metametrics';
 import Spinner from '../../ui/spinner';
-import { startNewDraftTransaction } from '../../../ducks/send';
-import { AssetType } from '../../../../shared/constants/transaction';
 import { Icon, IconName } from '../../component-library';
 import { IconColor } from '../../../helpers/constants/design-system';
 ///: BEGIN:ONLY_INCLUDE_IN(build-main,build-beta,build-flask)
@@ -226,34 +223,6 @@ const EthOverview = ({ className, showAddress }) => {
             ///: END:ONLY_INCLUDE_IN
           }
 
-          <IconButton
-            className="eth-overview__button"
-            data-testid="eth-overview-send"
-            Icon={
-              <Icon
-                name={IconName.Arrow2UpRight}
-                color={IconColor.primaryInverse}
-              />
-            }
-            label={t('send')}
-            onClick={() => {
-              trackEvent({
-                event: MetaMetricsEventName.NavSendButtonClicked,
-                category: MetaMetricsEventCategory.Navigation,
-                properties: {
-                  token_symbol: 'ETH',
-                  location: 'Home',
-                  text: 'Send',
-                  chain_id: chainId,
-                },
-              });
-              dispatch(
-                startNewDraftTransaction({ type: AssetType.native }),
-              ).then(() => {
-                history.push(SEND_ROUTE);
-              });
-            }}
-          />
           <IconButton
             className="eth-overview__button"
             disabled={!isSwapsChain}

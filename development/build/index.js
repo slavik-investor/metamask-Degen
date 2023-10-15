@@ -293,7 +293,7 @@ testDev: Create an unoptimized, live-reloading build for debugging e2e tests.`,
           type: 'string',
         })
         .option('apply-lavamoat', {
-          default: true,
+          default: false,
           description:
             'Whether to use LavaMoat. Setting this to `false` can be useful during development if you want to handle LavaMoat errors later.',
           type: 'boolean',

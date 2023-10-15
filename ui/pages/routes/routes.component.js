@@ -19,7 +19,6 @@ import Initialized from '../../helpers/higher-order-components/initialized';
 import Lock from '../lock';
 import PermissionsConnect from '../permissions-connect';
 import RestoreVaultPage from '../keychains/restore-vault';
-import RevealSeedConfirmation from '../keychains/reveal-seed';
 import ConfirmAddSuggestedTokenPage from '../confirm-add-suggested-token';
 import CreateAccountPage from '../create-account/create-account.component';
 import ConfirmAddSuggestedNftPage from '../confirm-add-suggested-nft';
@@ -71,7 +70,6 @@ import {
   LOCK_ROUTE,
   NEW_ACCOUNT_ROUTE,
   RESTORE_VAULT_ROUTE,
-  REVEAL_SEED_ROUTE,
   SEND_ROUTE,
   SWAPS_ROUTE,
   SETTINGS_ROUTE,
@@ -268,11 +266,7 @@ export default class Routes extends Component {
           component={RestoreVaultPage}
           exact
         />
-        <Authenticated
-          path={REVEAL_SEED_ROUTE}
-          component={RevealSeedConfirmation}
-          exact
-        />
+
         <Authenticated path={SETTINGS_ROUTE} component={Settings} />
         {
           ///: BEGIN:ONLY_INCLUDE_IN(snaps)

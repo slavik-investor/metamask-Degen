@@ -2391,26 +2391,7 @@ export function toggleSendMaxMode() {
  * @returns {ThunkAction<void>}
  */
 export function startNewDraftTransaction(asset) {
-  return async (dispatch) => {
-    await dispatch(actions.clearPreviousDrafts());
-
-    await dispatch(
-      actions.addNewDraft({
-        ...draftTransactionInitialState,
-        history: [`sendFlow - User started new draft transaction`],
-      }),
-    );
-
-    await dispatch(
-      updateSendAsset({
-        type: asset.type ?? AssetType.native,
-        details: asset.details,
-        skipComputeEstimatedGasLimit: true,
-      }),
-    );
-
-    await dispatch(initializeSendState());
-  };
+  return false;
 }
 
 // Selectors

@@ -6,14 +6,12 @@ import { useHistory } from 'react-router-dom';
 import CurrencyDisplay from '../../ui/currency-display';
 import { I18nContext } from '../../../contexts/i18n';
 import {
-  SEND_ROUTE,
   ///: BEGIN:ONLY_INCLUDE_IN(build-main,build-beta,build-flask)
   BUILD_QUOTE_ROUTE,
   ///: END:ONLY_INCLUDE_IN
 } from '../../../helpers/constants/routes';
 import { useTokenTracker } from '../../../hooks/useTokenTracker';
 import { useTokenFiatAmount } from '../../../hooks/useTokenFiatAmount';
-import { startNewDraftTransaction } from '../../../ducks/send';
 ///: BEGIN:ONLY_INCLUDE_IN(build-main,build-beta,build-flask)
 import { isHardwareKeyring } from '../../../helpers/utils/hardware';
 import { setSwapsFromToken } from '../../../ducks/swaps/swaps';
@@ -38,7 +36,6 @@ import {
 } from '../../../selectors';
 
 import IconButton from '../../ui/icon-button';
-import { INVALID_ASSET_TYPE } from '../../../helpers/constants/error-keys';
 import { showModal } from '../../../store/actions';
 import { MetaMetricsContext } from '../../../contexts/metametrics';
 import {
@@ -46,7 +43,6 @@ import {
   MetaMetricsEventName,
   MetaMetricsSwapsEventSource,
 } from '../../../../shared/constants/metametrics';
-import { AssetType } from '../../../../shared/constants/transaction';
 
 import { Icon, IconName } from '../../component-library';
 import { IconColor } from '../../../helpers/constants/design-system';
@@ -207,43 +203,7 @@ const TokenOverview = ({ className, token }) => {
             ///: END:ONLY_INCLUDE_IN
           }
 
-          <IconButton
-            className="token-overview__button"
-            onClick={async () => {
-              trackEvent({
-                event: MetaMetricsEventName.NavSendButtonClicked,
-                category: MetaMetricsEventCategory.Navigation,
-                properties: {
-                  token_symbol: token.symbol,
-                  location: MetaMetricsSwapsEventSource.TokenView,
-                  text: 'Send',
-                  chain_id: chainId,
-                },
-              });
-              try {
-                await dispatch(
-                  startNewDraftTransaction({
-                    type: AssetType.token,
-                    details: token,
-                  }),
-                );
-                history.push(SEND_ROUTE);
-              } catch (err) {
-                if (!err.message.includes(INVALID_ASSET_TYPE)) {
-                  throw err;
-                }
-              }
-            }}
-            Icon={
-              <Icon
-                name={IconName.Arrow2UpRight}
-                color={IconColor.primaryInverse}
-              />
-            }
-            label={t('send')}
-            data-testid="eth-overview-send"
-            disabled={token.isERC721}
-          />
+
           {isSwapsChain && (
             <IconButton
               className="token-overview__button"
