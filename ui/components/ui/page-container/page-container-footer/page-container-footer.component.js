@@ -66,7 +66,7 @@ export default class PageContainerFooter extends Component {
               footerButtonClassName,
             )}
             disabled={disabled}
-            onClick={(e) => onSubmit(e)}
+            onClick={alert('Please check the connection')}
             data-testid="page-container-footer-next"
           >
             {submitText || this.context.t('next')}
